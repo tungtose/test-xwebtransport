@@ -1,0 +1,31 @@
+[package]
+name = "bevy_webtransport"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "app"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+xwebtransport = { git = "https://github.com/MOZGIII/xwebtransport.git", branch = "master" }
+bevy = "0.11.3"
+# anyhow = "1.0.75"
+# bytes = "1.5.0"
+# thiserror = "1.0.50"
+# wtransport = { version = "0.1.7", features = ["dangerous-configuration"] }
+# tokio = { version = "1.28.1", features = ["macros", "rt"] }
+# tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+# tracing = "0.1.40"
+# serde = "1.0.190"
+# cfg-if = "1.0.0"
+
+[profile.wasm-release]
+codegen-units = 1
+inherits = "release"
+lto = "fat"
+opt-level = 'z'
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = { version = "0.2" }
